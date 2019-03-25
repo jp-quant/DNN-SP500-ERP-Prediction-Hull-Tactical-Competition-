@@ -68,9 +68,9 @@ class DeepFeedForward(object):
         self.initialize_model_architecture(self.neurons_architecture)
         #-------------------------------------#
         self.scaler = MinMaxScaler()
-        self.hyper_params = {'batch_size': 32,
-                             'epochs': 20,
-                             'test_size': 100}
+        self.hyper_params = {'batch_size': 50,
+                             'epochs':5,
+                             'test_size': 50}
 
      
     def train(self,interactive=True,epochs=None,batch_size=None,
@@ -336,7 +336,7 @@ class DeepFeedForward(object):
         if test_size is not None:
             self.hyper_params['test_size'] = test_size
 
-    def predict(self,prediction_time=0,simple_mode=False):
+    def predict(self,prediction_time=0,simple_mode=True):
         #----PREDICT USING AMOUNT OF DATA SPECIFIED FOR TEST_SIZE----#
         df = pd.DataFrame().append(self.dataframe.tail(self.hyper_params['test_size']))
         #df[self.prediction_target+'_pred'] = df[self.prediction_target].shift(-prediction_time)
