@@ -68,11 +68,13 @@ class DeepFeedForward(object):
         self.initialize_model_architecture(self.neurons_architecture)
         #-------------------------------------#
         self.scaler = MinMaxScaler()
-        self.hyper_params = {'batch_size': 50,
-                             'epochs':5,
-                             'test_size': 50}
+        self.hyper_params = {'batch_size': 32,
+                             'epochs': 10,
+                             'test_size': 32}
+            
+                        
 
-     
+
     def train(self,interactive=True,epochs=None,batch_size=None,
                 save_model=False,mse_threshold=None,
                 shuffle=True,return_all_mse=False):
@@ -135,7 +137,7 @@ class DeepFeedForward(object):
                         x_train = x_train[shuffled_index]
                         y_train = y_train[shuffled_index]
                     for i in range(0, len(y_train) // batch_size):
-                        if shuffle is False:
+                        if shuffle is True:
                             start = np.random.choice(np.arange(len(y_train) - batch_size))
                         else:
                             start = i * batch_size
