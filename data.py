@@ -2,18 +2,18 @@ import pandas as pd
 import numpy as np
 
 
-class DataGenerator(object):
+class DataManager(object):
 
     def __init__(self,
                 target = 'ASPFWR5',
-                data_fname='dataset.csv',):
+                full_data_fname='dataset.csv',):
 
-        self.original_df = pd.read_csv(data_fname,index_col=0,header=0)
+        self.original_df = pd.read_csv(full_data_fname,index_col=0,header=0)
         self.sub_datasets = self.initialize_subdatasets(self.original_df)
 
     
 
-    def train_split_multiInput(self,train_df,target,lookback):
+    def prepare_XY_multiInput(self,train_df,target,lookback):
         """
         Params:
          train_df - training dataframe for the operation, include both features and target (pd.DataFrame)
@@ -43,7 +43,7 @@ class DataGenerator(object):
         while (end != len(train_df)):
             lback_df = train_df[start:end]
             x.append(np.array(lback_df.drop([target],axis=1)))
-            y.append(np.array(lback_df[target].iloc[-1]))
+            y.append(np.array(lback_df[[target]].iloc[-1]))
             start += 1
             end += 1
         
